@@ -25,7 +25,7 @@ public class ProductService {
     public void createProduct(ProductRequest productRequest) {
          Product product = productRepository.save(productMapper.apply(productRequest));
 
-         log.info("Product {} foi salvo", product.getId());
+         log.info("Produto {} foi salvo", product.getId());
     }
 
     public List<ProductResponse> getAllProducts() {
