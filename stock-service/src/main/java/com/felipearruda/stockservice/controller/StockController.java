@@ -1,11 +1,12 @@
 package com.felipearruda.stockservice.controller;
 
+import com.felipearruda.stockservice.dto.response.StockResponse;
+import com.felipearruda.stockservice.model.Stock;
 import com.felipearruda.stockservice.service.StockService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/stock")
@@ -14,9 +15,9 @@ public class StockController {
 
     private final StockService stockService;
 
-    @GetMapping("/{sku-code}")
-    public boolean isInStock(@PathVariable("sku-code") String skuCode) {
-        return stockService.isInStock(skuCode);
+    @GetMapping
+    public List<StockResponse> isInStock(@RequestParam List<String> skuCodes) {
+        return stockService.isInStock(skuCodes);
     }
 
 }
