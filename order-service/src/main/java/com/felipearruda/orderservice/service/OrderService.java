@@ -42,7 +42,11 @@ public class OrderService {
                 .bodyToMono(StockResponse[].class)
                 .block();
 
-        boolean result = Arrays.stream(stock).allMatch(StockResponse::isInStock);
+        boolean result = false;
+
+        if (stock != null && stock.length > 0) {
+            result = Arrays.stream(stock).allMatch(StockResponse::isInStock);
+        }
 
         if (result) {
             orderRepository.save(order);
