@@ -23,7 +23,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
-    private final WebClient webClient;
+    private final WebClient.Builder webClientBuilder;
 
     @Transactional
     public void placeOrder(OrderRequest orderRequest) {
@@ -35,8 +35,8 @@ public class OrderService {
                 .toList();
 
 
-        StockResponse[] stock =  webClient.get()
-                .uri("http://localhost:8082/api/stock",
+        StockResponse[] stock =  webClientBuilder.build().get()
+                .uri("http://stock-service/api/stock",
                         uriBuilder -> uriBuilder.queryParam("skuCodes", skuCodes).build())
                 .retrieve()
                 .bodyToMono(StockResponse[].class)
