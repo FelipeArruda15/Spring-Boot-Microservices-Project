@@ -26,7 +26,7 @@ public class OrderService {
     private final WebClient.Builder webClientBuilder;
 
     @Transactional
-    public void placeOrder(OrderRequest orderRequest) {
+    public String placeOrder(OrderRequest orderRequest) {
         Order order = orderMapper.apply(orderRequest);
         order.setOrderNumber(UUID.randomUUID().toString());
 
@@ -50,7 +50,7 @@ public class OrderService {
 
         if (result) {
             orderRepository.save(order);
-            log.info("Pedido feito com sucesso");
+            return "Pedido efetuado com sucesso";
         } else {
             throw new IllegalArgumentException("O produto não está em estoque, tente novamente mais tarde");
         }
